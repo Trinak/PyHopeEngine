@@ -10,7 +10,7 @@ import pymunk
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import Vec2d
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 
 infinity = pymunk.inf
 Screen = ECOM.Screen

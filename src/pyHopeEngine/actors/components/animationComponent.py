@@ -7,8 +7,8 @@ Created on Nov 6, 2013
 import pygame
 
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine.renderComponent import RenderComponent
-from pyHopeEngine.sceneNode import AnimationNode
+from pyHopeEngine.actors.components.renderComponent import RenderComponent
+from pyHopeEngine.graphics.sceneNode import AnimationNode
 
 class AnimationComponent(RenderComponent):
     def __init__(self):

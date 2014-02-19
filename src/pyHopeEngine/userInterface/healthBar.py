@@ -4,7 +4,7 @@ Created on Nov 21, 2013
 @author: Devon Arrington
 '''
 
-from pyHopeEngine import BaseUI
+from pyHopeEngine.userInterface.userInterface import BaseUI
 
 
 class HealthBar(BaseUI):

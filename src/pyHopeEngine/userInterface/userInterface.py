@@ -10,7 +10,7 @@ import pygame
 
 from pgu.gui import App
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine import BaseTable
+from pyHopeEngine.userInterface.widgets import BaseTable
 
 class BaseUI(App):
     '''Main UI widget to hold other widgets'''

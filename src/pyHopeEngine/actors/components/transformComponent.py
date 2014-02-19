@@ -5,7 +5,7 @@ Created on Oct 3, 2013
 '''
 
 from pyHopeEngine import Vec2d
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 
 
 class TransformComponent(ActorComponent):

@@ -7,7 +7,7 @@ Defines component to hold child actors
 '''
 
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 
 
 class ChildActorsComponent(ActorComponent):

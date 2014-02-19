@@ -9,8 +9,8 @@ Defines rendering components
 import pygame
 
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine.sceneNode import SpriteNode, LineSegmentNode, ShapeNode, HealthBarNode
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.graphics.sceneNode import SpriteNode, LineSegmentNode, ShapeNode, HealthBarNode
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 from pyHopeEngine import Event_NewRenderComponent
 
 

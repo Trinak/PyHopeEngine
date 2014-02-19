@@ -6,7 +6,7 @@ Created on Oct 30, 2013
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import Event_RequestDestroyActor
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 
 
 class HealthComponent(ActorComponent):

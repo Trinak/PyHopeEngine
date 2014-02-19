@@ -10,7 +10,7 @@ import pygame
 
 from pgu import gui
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine import createText
+from pyHopeEngine.utilities.textHelper import createText
 
 
 class BaseTable(gui.Table):

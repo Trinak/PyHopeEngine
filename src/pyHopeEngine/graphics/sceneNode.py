@@ -10,9 +10,9 @@ import math
 import pygame
 import pyganim
 
-from pyHopeEngine import Vec2d
-from pyHopeEngine import GameSprite
-from pyHopeEngine import HealthBar
+from pymunk import Vec2d
+from pyHopeEngine.graphics.sprite import GameSprite
+from pyHopeEngine.userInterface.healthBar import HealthBar
 
 class SceneNode(object):
     '''Base scene node'''

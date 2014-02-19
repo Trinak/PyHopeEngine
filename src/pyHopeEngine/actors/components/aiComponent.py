@@ -6,7 +6,7 @@ Created on Jul 27, 2013
 Defines base AI component
 '''
 
-from pyHopeEngine.actorComponent import ActorComponent
+from pyHopeEngine.actors.components.actorComponent import ActorComponent
 
 class AIComponent(ActorComponent):
     '''Base AI component'''
