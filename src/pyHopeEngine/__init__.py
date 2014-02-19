@@ -66,6 +66,7 @@ from pyHopeEngine.physics.physics import NullPhysics, PhysicsManager
 from pyHopeEngine.userInterface.humanView import HumanView
 from pyHopeEngine.userInterface.userInterface import BaseUI
 from pyHopeEngine.userInterface.healthBar import HealthBar
+from pyHopeEngine.userInterface.widgets import BaseDialog, BaseSelect, BaseTable
 
 
 #pyHopeEngine
