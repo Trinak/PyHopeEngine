@@ -18,8 +18,10 @@ from pyHopeEngine import Event_ActorMoved
 class NullPhysics(object):
     '''Null physics for a remote game'''
     def __init__(self):
-        pass
+        pass        
     def setGravity(self, gravityX, gravityY):
+        pass
+    def setDamping(self, damping):
         pass
     def addShape(self, actorID, body, shape, elasticity, collisionType):
         pass
@@ -30,12 +32,24 @@ class NullPhysics(object):
     def addPoly(self, actorID, **kwargs):
         pass
     def addSegment(self, actorID, **kwargs):
-        pass    
-    def createBody(self, isStatic, mass, moment, pos, angle):
+        pass
+    def createBody(self, isStatic, mass, moment, pos):
+        pass
+    def setDirection(self, actorID, angle):
+        pass
+    def setPosition(self, actorID, pos):
+        pass  
+    def setVelocityLimit(self, actorID, limit):
         pass
     def addConstraint(self, constraintType, actorIDA, actorIDB, **kwargs):
         pass
-    def getBody(self, actorID, shapeID = 0):
+    def getActorID(self, shape):
+        pass
+    def getShape(self, actorID):
+        pass
+    def getBody(self, actorID):
+        pass
+    def getVelocity(self, actorID):
         pass
     def removeObjects(self, actorID):
         pass
@@ -44,23 +58,27 @@ class NullPhysics(object):
     def linkActor(self, actorID, shape):
         pass
     def update(self, time):
-        pass
+        pass   
     def syncWithGraphics(self):
+        pass    
+    def setVelocity(self, actorID, velocity):
         pass
-    def changeVelocity(self, actorID, velocity):
+    def setAngularVelocity(self, actorID, velocity):
         pass
-    def changeRotation(self, actorID, angle):
+    def changeAngle(self, actorID, angle):
         pass
-    def applyForce(self, actorID, force, offset = (0, 0)):
+    def applyForce(self, actorID, direction, magnitude, offset = (0, 0)):
         pass
-    def applyImpulse(self, actorID, impulse, offset = (0, 0)):
+    def applyImpulse(self, actorID, direction, magnitude, offset = (0, 0)):
         pass
     def setCollisionType(self, actorID, num):
         pass
     def setVelocityFunc(self, actorID, func):
         pass
-    def debugDraw(self, screen):
+    def addToGroup(self, actorIDAdd, actorIDGroup):
         pass
+    def debugDraw(self):
+        pass   
     def debugOutlineColor(self, shape, color):
         pass
     
@@ -225,12 +243,11 @@ class PhysicsManager(object):
         '''Syncs objects positons in the physics system with the graphics system'''
         for actorID, shape in self.actorIDToShape.items():
             body = shape.body
-            actor = ECOM.engine.baseLogic.actorManager.findActor(actorID)
+            actor = ECOM.engine.baseLogic.actorManager.getActor(actorID)
             transComp = actor.getComponent("TransformComponent")
-            if transComp.pos != body.position or transComp.direction.angle != body.angle:
+            if transComp.pos != body.position or transComp.rotation != body.angle:
                 transComp.pos = copy.copy(body.position)
-                transComp.direction.angle = copy.copy(body.angle)    
-                transComp.direction.normalized()
+                transComp.rotation = copy.copy(body.angle)    
                 
                 event = Event_ActorMoved(actorID, body.position, body.angle)
                 ECOM.eventManager.queueEvent(event)      
@@ -253,6 +270,15 @@ class PhysicsManager(object):
         body.apply_force(force, offset)
     
     def applyImpulse(self, actorID, direction, magnitude, offset = (0, 0)):
+        '''Applies an impulse to a body
+        
+        Keyword arguments:
+            actorID - ID of the actor body to move
+            direction - direction of impulse as Vec2d
+            magnitude - magnitude of impulse
+            offset - offset of the impulse from body center
+        '''
+        
         body = self.getBody(actorID)
         impulse = direction * magnitude
         body.apply_impulse(impulse, offset)

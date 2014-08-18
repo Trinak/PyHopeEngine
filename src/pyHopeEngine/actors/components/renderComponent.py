@@ -86,12 +86,12 @@ class SpriteRenderComponent(RenderComponent):
         
         if transformComponent.pos is not None:
             pos = transformComponent.pos
-            direction = transformComponent.direction
+            rotation = transformComponent.rotation
         else:
             pos = (0, 0)
-            direction = (0, 1)
+            rotation = 0
             
-        sceneNode = SpriteNode(self.owner.actorID, self, pos, direction, self.spriteFile)
+        sceneNode = SpriteNode(self.owner.actorID, self, pos, rotation, self.spriteFile)
         
         return sceneNode
 
@@ -102,7 +102,7 @@ class LineSegmentRenderComponent(RenderComponent):
     
     def createSceneNode(self):
         '''Creates the line segment node and sets its position in the world'''
-        physicsComponent = self.owner.getComponent("TransformComponent")
+        physicsComponent = self.owner.getComponent("PhysicsComponent")
         
         if physicsComponent is not None:
             vertices = physicsComponent.properties.vertices

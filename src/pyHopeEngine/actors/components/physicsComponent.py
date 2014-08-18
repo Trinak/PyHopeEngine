@@ -117,6 +117,9 @@ class PhysicsComponent(ActorComponent):
     
     def removeAngularAcceleration(self):
         self.properties.angularAcceleration = 0
+        
+    def applyImpulse(self, direction, magnitude):
+        self.physics.applyImpulse(self.owner.actorID, direction, magnitude)
     
     def setVelocity(self, velocity):
         velocity = Vec2d(velocity)
@@ -131,7 +134,7 @@ class PhysicsComponent(ActorComponent):
         transformComponent = self.owner.getComponent("TransformComponent")
         pos = transformComponent.pos
         size = transformComponent.size
-        angle = transformComponent.direction.angle
+        rotation = transformComponent.rotation
     
         if self.properties.shapeType == "Circle":
             size = size[0] / 2
@@ -146,7 +149,7 @@ class PhysicsComponent(ActorComponent):
         elif self.properties.shapeType =="Segment":
             self.physics.addSegment(self.owner.actorID, pos = pos, size = size, **self.properties.__dict__)
         
-        self.physics.setDirection(self.owner.actorID, angle )
+        self.physics.setDirection(self.owner.actorID, rotation)
         self.physics.setVelocityLimit(self.owner.actorID, self.properties.velocityLimit)
 
 
@@ -155,7 +158,7 @@ class ConstantVelocityPhysicsComponent(PhysicsComponent):
     
     def __init__(self):
         super().__init__()
-        self.impulse = None
+        self.startVelocityMod = None
         self.velocityMod = None
         
     def init(self, element):
@@ -166,15 +169,23 @@ class ConstantVelocityPhysicsComponent(PhysicsComponent):
         '''
         
         super().init(element)
-        self.impulse = Vec2d(self.findProperty(element, "StartingImpulse", (1,1)))
-        self.velocityMod = self.findProperty(element, "VelocityMod", 100)
+        self.startVelocityMod = self.findProperty(element, "VelocityMod", 100)
+        self.velocityMod = self.startVelocityMod
    
     def postInit(self):
         '''Actually creates the body and shape in the physics system.
         Also applys a starting impulse and sets a constant velocity.
         '''
         super().postInit()
-        self.applyImpulse(self.impulse)
+        
+        transformComponent = self.owner.getComponent("TransformComponent")
+        direction = transformComponent.direction
+        
+        self.physics.applyImpulse(self.owner.actorID, direction, self.velocityMod)
+        self.setConstantVelocity(self.velocityMod)
+
+    def changeVelocityMod(self, newMod):
+        self.velocityMod = newMod
         self.setConstantVelocity(self.velocityMod)
 
     def setConstantVelocity(self, mod):

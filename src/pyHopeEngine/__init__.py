@@ -20,6 +20,10 @@ from pyHopeEngine.event.physicsEvents import *
 from pyHopeEngine.event.eventManager import EventManager
 
 
+#processes
+from pyHopeEngine.processes.process import ProcessState, Process
+from pyHopeEngine.processes.processManager import ProcessManager
+
 #actors
 from pyHopeEngine.actors.actor import Actor
 from pyHopeEngine.actors.actorFactory import ActorFactory

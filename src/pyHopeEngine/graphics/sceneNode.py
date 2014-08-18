@@ -123,7 +123,7 @@ class RectNode(SceneNode):
 class SpriteNode(RectNode):
     '''Node to hold sprite images'''
     
-    def __init__(self, actorID, renderComponent, pos, direction, file):
+    def __init__(self, actorID, renderComponent, pos, rotation, file):
         '''Create a new sprite node
         
         Keyword arguments:
@@ -133,12 +133,15 @@ class SpriteNode(RectNode):
             file -- file of the sprite image
         '''
         super().__init__(actorID, renderComponent)
+        self.addSpriteImage(file, pos, rotation)
+    
+    def addSpriteImage(self, file, pos, rotation):
         self.sprite = GameSprite(file)
         self.rect = self.sprite.image.get_rect()
         self.rect.centerx = pos.x
         self.rect.centery = pos.y
-        self.initDirection = Vec2d(direction)
-        self.direction = Vec2d(direction)
+        self.initRotation = rotation
+        self.rotation = rotation
         self.initWidth = self.rect.width
         self.initHeight = self.rect.height
     
@@ -152,8 +155,8 @@ class SpriteNode(RectNode):
                 child.render(scene)
     
     def setRotation(self, angle):
-        self.direction.angle = angle
-        rotate = self.initDirection.angle - angle 
+        self.rotation = angle
+        rotate = self.initRotation - angle 
         rotate = math.degrees(rotate)
         self.sprite.image = pygame.transform.rotozoom(self.sprite.oriImage, rotate, 1)
         self.rect = self.sprite.image.get_rect(center = self.rect.center)

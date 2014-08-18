@@ -8,6 +8,7 @@ Defines the base logic of the engine
 
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import PhysicsManager, NullPhysics
+from pyHopeEngine import ProcessManager
 from pyHopeEngine import Event_ActorMoved, Event_SetRemoteActor, Event_CreateNewActor, Event_SetControlledActor, Event_RequestDestroyActor, Event_DestroyActor
 from pyHopeEngine import NetworkEventForwarder
 
@@ -15,6 +16,7 @@ class BaseLogic(object):
     '''Base logic of game'''
     
     def __init__(self):
+        self.processManager = ProcessManager()
         self.physics = PhysicsManager()
         self.gameStates = []
         self.gameViewList = []
@@ -34,13 +36,17 @@ class BaseLogic(object):
         '''Remove a game view'''
         self.gameViewList.remove(gameView)
     
+    def addProcess(self, process):
+        if self.processManager is not None:
+            self.processManager.addProcess(process)
+            
     def createActor(self, resource, initialPos = None, actorID = None, parent = None):
         '''Create an actor from the given resource'''
         actor = self.actorManager.createActor(resource, initialPos, actorID, parent)
         
-        '''if not self.proxy:
+        if not self.proxy:
             event = Event_CreateNewActor(resource, actor.actorID)
-            ECOM.eventManager.triggerEvent(event)'''
+            ECOM.eventManager.triggerEvent(event)
         
         return actor
     
@@ -49,8 +55,9 @@ class BaseLogic(object):
         actor = self.actorManager.findActor(actorID)
         return actor
     
-    def update(self):
+    def update(self, elapsedTime):
         '''Update the various game systems'''
+        self.processManager.update(elapsedTime)
         self.gameStates[-1].update(self)
         
         for view in self.gameViewList:

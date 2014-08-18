@@ -6,7 +6,7 @@ Created on Jun 3, 2013
 Defines main engine
 
 Note: Engine heavily inspired by the Game Coding Complete
-Engine created by Mikey McShaffry and David "Rez" Graham
+Engine created by Mike McShaffry and David "Rez" Graham
 and used in their book by the same name.
 '''
 
@@ -46,13 +46,14 @@ class PyHopeEngineApp:
         self.initGame()
         
         while True:
+            elapsedTime = self.clock.get_time()
             self.handlePygameEvents()
             self.eventManager.update()
             
             if self.networkManager is not None:
                 self.networkManager.update()
             
-            self.baseLogic.update()
+            self.baseLogic.update(elapsedTime)
             
             self.renderer.clearSurface(ECOM.Colors.BLACK)
             for view in self.baseLogic.gameViewList:
@@ -74,7 +75,7 @@ class PyHopeEngineApp:
         raise NotImplementedError("createLogicAndView not implemented.")
         
     def handlePygameEvents(self):
-        '''Handles events create through pygame'''
+        '''Handles events created through pygame'''
         inputEvents = [pyLocals.KEYDOWN, pyLocals.KEYUP, pyLocals.MOUSEMOTION, 
                        pyLocals.MOUSEBUTTONUP, pyLocals.MOUSEBUTTONDOWN]
         for event in pygame.event.get():

@@ -8,21 +8,28 @@ Defines the base UI
 
 import pygame
 
-from pgu.gui import App
+from pgu.gui import App, Theme
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine.userInterface.widgets import BaseTable
 
 class BaseUI(App):
     '''Main UI widget to hold other widgets'''
-    def __init__(self, **params):
+    def __init__(self, theme = "default", **params):
         '''Create new BaseUI to hold widgets
         
         Keyword arguments:
+            theme -- the given theme, default otherwise (note: the themes directory must be located
+                        within the ResourceManagers data directory)
             x, y -- position UI
             width, height -- size of UI
             align, valign -- alignment
         '''
-        super().__init__(**params)
+        if theme == "default":
+            themeDir = ECOM.engine.resourceManager.dataDir
+            themeDir += "\\themes\\default"
+            theme = Theme(themeDir)
+            
+        super().__init__(theme = theme, **params)
         self.owner = None
         self.visible = True
         self.widget = BaseTable(**params)

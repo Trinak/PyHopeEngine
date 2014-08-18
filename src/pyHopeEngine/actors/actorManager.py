@@ -23,7 +23,7 @@ class ActorManager(object):
         actor.cleanUp()
         del self.actorDict[actorID]
     
-    def findActor(self, actorID):
+    def getActor(self, actorID):
         return self.actorDict[actorID]
     
     def createActor(self, resource, initialPos = None, actorID = None, parent = None):

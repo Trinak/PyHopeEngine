@@ -14,7 +14,7 @@ class TransformComponent(ActorComponent):
         self.owner = None
         self.direction = None
         self.pos = None
-        self.angle = None
+        self.rotation = None
         
         #size is (width, height)
         self.size = None
@@ -38,6 +38,12 @@ class TransformComponent(ActorComponent):
             self.pos = Vec2d(eval(posElement.text))
         else:
             self.pos = (0, 0)
+        
+        rotElement = element.find("Rotation")
+        if rotElement is not None:
+            self.rotation = eval(rotElement.text)
+        else:
+            self.rotation = 0
         
         sizeElement = element.find("Size")
         if sizeElement is not None:
