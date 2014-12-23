@@ -3,6 +3,7 @@ Created on Oct 3, 2013
 
 @author: Devon Arrington
 '''
+import random
 
 from pyHopeEngine import Vec2d
 from pyHopeEngine.actors.components.actorComponent import ActorComponent
@@ -28,7 +29,13 @@ class TransformComponent(ActorComponent):
         
         directElement = element.find("Direction")
         if directElement is not None:
-            self.direction = Vec2d(eval(directElement.text))
+            if directElement.text == "Random":
+                x = random.choice((-1, 1))
+                y = random.choice((-1, 1))
+                self.direction = Vec2d(x, y)
+            else:
+                self.direction = Vec2d(eval(directElement.text))
+            
             self.direction.normalized()
         else:
             self.direction = Vec2d(1, 0)

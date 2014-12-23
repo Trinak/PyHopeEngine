@@ -125,6 +125,10 @@ class PhysicsComponent(ActorComponent):
         velocity = Vec2d(velocity)
         self.physics.setVelocity(self.owner.actorID, velocity)
         
+    def setPosition(self, pos):
+        self.owner.getComponent("TransformComponent").pos = pos
+        self.physics.setPosition(self.owner.actorID, pos)
+    
     def cleanUp(self):
         '''Removes the body and shape from the physics system.'''
         self.physics.removeObjects(self.owner.actorID)
