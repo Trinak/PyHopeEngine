@@ -34,5 +34,5 @@ class ResourceManager:
             self.dataDir = directory
 
     def getFile(self, file):
-        '''Returns a file from the data directory'''
+        '''Returns a file string from the data directory'''
         return os.path.join(self.dataDir, file)

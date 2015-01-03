@@ -6,9 +6,11 @@ Created on May 31, 2013
 Defines the human view
 '''
 
+import pygame
 import pygame.locals as pyLocals
 
 from pyHopeEngine import GameView, Audio, Scene
+from pyHopeEngine import engineCommon as ECOM
 
 class HumanView(GameView):
     '''Main view for players'''
@@ -16,6 +18,7 @@ class HumanView(GameView):
         self.audio = Audio()
         self.keyboardHandler = None
         self.mouseHandler = None
+        self.background = None
         self.screenElement = []
         
         if renderer is not None:
@@ -34,6 +37,10 @@ class HumanView(GameView):
         self.actorID = actorID
         self.controlledActor = self.scene.findNode(self.actorID)
 
+    def setBackground(self, file):
+        file = ECOM.engine.resourceManager.getFile(file)
+        self.background = pygame.image.load(file).convert()
+
     def addScreenElement(self, element):
         '''Add UI or Scene elements to the view'''
         self.screenElement.append(element)
@@ -45,6 +52,9 @@ class HumanView(GameView):
             self.keyboardHandler.onKeyUp(event.key)
     
     def render(self):
+        if self.background is not None:
+            self.scene.renderer.render(self.background, [0, 0])
+        
         for element in self.screenElement:
             element.render()
     
