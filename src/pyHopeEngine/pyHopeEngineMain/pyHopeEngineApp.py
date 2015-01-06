@@ -20,7 +20,6 @@ from pyHopeEngine import Renderer
 from pyHopeEngine import EventManager
 from pyHopeEngine import ResourceManager
 
-
 pygame.init()
 
 class PyHopeEngineApp:
