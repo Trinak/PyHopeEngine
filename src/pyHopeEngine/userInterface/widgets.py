@@ -22,9 +22,16 @@ class BaseTable(gui.Table):
         '''Adds a widget to the table'''        
         self.td(widget, **params)
         
-    def addButton(self, value, func, **params):
+    def addButton(self, value, func, isImage = False, **params):
         '''Adds a button to the table'''
-        button = gui.Button(value, **params)
+        if isImage:
+            if isinstance(value, str):
+                value = ECOM.engine.resourceManager.getFile(value)
+            image = gui.Image(value, **params)
+            button = gui.Button(image, **params)
+        else:
+            button = gui.Button(value, **params)
+            
         button.connect(gui.CLICK, func)
         self.addWidget(button, **params)
         
