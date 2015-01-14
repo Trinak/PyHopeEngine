@@ -49,8 +49,12 @@ class HumanView(GameView):
         if self.keyboardHandler is not None:
             if event.type == pyLocals.KEYDOWN:
                 self.keyboardHandler.onKeyDown(event.key)
+                return True
             if event.type == pyLocals.KEYUP:
                 self.keyboardHandler.onKeyUp(event.key)
+                return True
+        
+        return False
     
     def render(self):
         if self.background is not None:
