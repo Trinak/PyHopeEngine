@@ -97,9 +97,9 @@ class BaseLogic(object):
     
     def destroyActor(self, event):
         '''Destroys an actor'''
+        self.actorManager.destroyActor(event.actorID)
         event = Event_DestroyActor(event.actorID)
         ECOM.eventManager.triggerEvent(event)
-        self.actorManager.destroyActor(event.actorID)
     
     def createNetworkEventForwarder(self):
         '''Create an event forwarder for server and client to communicate'''
