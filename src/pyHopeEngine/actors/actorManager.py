@@ -19,8 +19,7 @@ class ActorManager(object):
         self.actorDict[actor.actorID] = actor
     
     def destroyActor(self, actorID):
-        actor = self.findActor(actorID)
-        actor.cleanUp()
+        self.actorDict[actorID].cleanUp()
         del self.actorDict[actorID]
     
     def getActor(self, actorID):
