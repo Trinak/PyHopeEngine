@@ -36,3 +36,6 @@ class ProcessManager(object):
 
     def addProcess(self, process):
         self.processes.append(process)
+        
+    def cleanUp(self):
+        self.processes.clear()

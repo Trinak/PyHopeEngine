@@ -81,6 +81,8 @@ class NullPhysics(object):
         pass   
     def debugOutlineColor(self, shape, color):
         pass
+    def cleanUp(self):
+        pass
     
     
 class PhysicsManager(object):
@@ -309,3 +311,6 @@ class PhysicsManager(object):
         
     def debugOutlineColor(self, shape, color):
         shape.color = color
+    
+    def cleanUp(self):
+        self.lastGroupID = 1

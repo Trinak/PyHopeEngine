@@ -70,9 +70,9 @@ class Event_SetRemoteActor(BaseEvent):
         self.actorID = actorID
 
 
-class Event_DestroyActor(BaseEvent):
+class Event_ActorDestroyed(BaseEvent):
     '''Sent when an actor is destroyed'''
-    eventType = "DestroyActor"
+    eventType = "ActorDestroyed"
     
     def __init__(self, actorID):
         self.actorID = actorID

@@ -8,7 +8,7 @@ Defines a scene graph holding the world objects
 
 from pygame import Rect
 from pyHopeEngine import engineCommon as ECOM
-from pyHopeEngine import Event_NewRenderComponent, Event_ActorMoved, Event_DestroyActor, Event_ScreenResize, Event_PlayAnimation
+from pyHopeEngine import Event_NewRenderComponent, Event_ActorMoved, Event_ActorDestroyed, Event_ScreenResize, Event_PlayAnimation
 from pyHopeEngine.graphics.sceneNode import RootNode, CameraNode
 
 class Scene:
@@ -36,7 +36,7 @@ class Scene:
         eventManager.addListener(self.actorMoved, Event_ActorMoved.eventType)
         eventManager.addListener(self.screenResize, Event_ScreenResize.eventType)
         eventManager.addListener(self.playAnimation, Event_PlayAnimation.eventType)
-        eventManager.addListener(self.destroyActor, Event_DestroyActor.eventType)
+        eventManager.addListener(self.destroyActor, Event_ActorDestroyed.eventType)
         
     def cleanUp(self):
         eventManager = ECOM.eventManager
@@ -44,7 +44,7 @@ class Scene:
         eventManager.removeListener(self.actorMoved, Event_ActorMoved.eventType)
         eventManager.removeListener(self.screenResize, Event_ScreenResize.eventType)
         eventManager.removeListener(self.playAnimation, Event_PlayAnimation.eventType)
-        eventManager.removeListener(self.destroyActor, Event_DestroyActor.eventType)
+        eventManager.removeListener(self.destroyActor, Event_ActorDestroyed.eventType)
     
     def findNode(self, actorID):
         if actorID in self.actorIDToNode.keys():

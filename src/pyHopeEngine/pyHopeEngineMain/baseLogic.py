@@ -9,7 +9,7 @@ Defines the base logic of the engine
 from pyHopeEngine import engineCommon as ECOM
 from pyHopeEngine import PhysicsManager, NullPhysics
 from pyHopeEngine import ProcessManager
-from pyHopeEngine import Event_ActorMoved, Event_SetRemoteActor, Event_CreateNewActor, Event_SetControlledActor, Event_RequestDestroyActor, Event_DestroyActor
+from pyHopeEngine import Event_ActorMoved, Event_SetRemoteActor, Event_CreateNewActor, Event_SetControlledActor, Event_RequestDestroyActor
 from pyHopeEngine import NetworkEventForwarder
 
 class BaseLogic(object):
@@ -98,8 +98,6 @@ class BaseLogic(object):
     def destroyActor(self, event):
         '''Destroys an actor'''
         self.actorManager.destroyActor(event.actorID)
-        event = Event_DestroyActor(event.actorID)
-        ECOM.eventManager.triggerEvent(event)
     
     def createNetworkEventForwarder(self):
         '''Create an event forwarder for server and client to communicate'''
@@ -114,3 +112,20 @@ class BaseLogic(object):
     def addPhysicsConstraint(self, constraintType, actorIDA, actorIDB, **kwargs):
         '''Add a contraint between two actors'''
         self.physics.addConstraint(constraintType, actorIDA, actorIDB, **kwargs)
+    
+    def cleanUp(self):
+        if self.networkEventForwarder is not None:
+            self.networkEventForwarder.cleanUp()
+            self.networkEventForwarder = None
+        
+        if self.actorManager is not None:
+            self.actorManager.cleanUp()
+            self.actorManager = None
+        
+        if self.physics is not None:
+            self.physics.cleanUp()
+            self.physics = None
+        
+        if self.processManager is not None:
+            self.processManager.cleanUp()
+            self.processManager = None

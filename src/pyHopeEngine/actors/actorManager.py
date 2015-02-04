@@ -6,6 +6,9 @@ Created on Jul 24, 2013
 Defines class to manage game actors
 '''
 
+from pyHopeEngine import engineCommon as ECOM
+from pyHopeEngine import Event_ActorDestroyed
+
 
 class ActorManager(object):
     '''Manages actors within game. Meant to be subclassed
@@ -21,6 +24,8 @@ class ActorManager(object):
     def destroyActor(self, actorID):
         self.actorDict[actorID].cleanUp()
         del self.actorDict[actorID]
+        event = Event_ActorDestroyed(actorID)
+        ECOM.eventManager.triggerEvent(event)
     
     def getActor(self, actorID):
         return self.actorDict[actorID]
@@ -40,7 +45,7 @@ class ActorManager(object):
             actor.cleanUp()
             
         self.actorDict.clear()
-        self.actorFactory.lastActorID = 0
+        self.actorFactory.cleanUp()
         
     
     

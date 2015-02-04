@@ -69,3 +69,6 @@ class ActorFactory(object):
         component.init(element)
         
         return component
+    
+    def cleanUp(self):
+        self.lastActorID = 0
