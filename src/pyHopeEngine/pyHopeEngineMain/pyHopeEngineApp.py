@@ -35,6 +35,7 @@ class PyHopeEngineApp:
         self.networkManager = None
         self.caption = ''
         self.renderFlags = 0
+        self.runGame = True
         
         #Set the global engine and event manager
         ECOM.engine = self
@@ -44,7 +45,7 @@ class PyHopeEngineApp:
         '''Main loop of the engine'''
         self.initGame()
         
-        while True:
+        while self.runGame:
             elapsedTime = self.clock.get_time()
             self.handlePygameEvents()
             self.eventManager.update()
@@ -104,6 +105,9 @@ class PyHopeEngineApp:
     def cleanUp(self):
         if self.networkManager is not None:
             self.networkManager.cleanUp()
+        
+        if self.baseLogic is not None:
+            self.baseLogic.cleanUp()
     
     def terminate(self):
         self.cleanUp()
