@@ -222,11 +222,15 @@ class PhysicsManager(object):
         shape = self.actorIDToShape[actorID]
         body = shape.body
         if body is not self.space.static_body:
-            self.space.remove(body, shape, body.constraints)
+            objectsToRemove = [body, shape]
+            if body.constraints:
+                objectsToRemove.append(body.constraints)
+            self.space.remove(*objectsToRemove)
         else:
             self.space.remove(shape)
         
         del self.actorIDToShape[actorID]
+        self.shapeToActorID = {key:value for key, value in self.shapeToActorID.items() if value != actorID}
         
     def addCollisionHandler(self, typeOne, typeTwo, begin = None, pre_solve = None, post_solve = None, separate = None, *args, **kwargs):
         '''Add a collision handler between two types'''

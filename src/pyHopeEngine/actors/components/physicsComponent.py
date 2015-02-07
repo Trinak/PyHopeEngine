@@ -132,6 +132,7 @@ class PhysicsComponent(ActorComponent):
     def cleanUp(self):
         '''Removes the body and shape from the physics system.'''
         self.physics.removeObjects(self.owner.actorID)
+        self.physics = None
             
     def postInit(self):
         '''Actually creates the body and shape in the physics system.'''
@@ -204,4 +205,7 @@ class ConstantVelocityPhysicsComponent(PhysicsComponent):
             '''Provides a constant velocity'''
             body.velocity = body.velocity.normalized() * mod
         
+        if self.physics is None:
+            engine = ECOM.engine
+            test = 3
         self.physics.setVelocityFunc(self.owner.actorID, constantVelocity)
