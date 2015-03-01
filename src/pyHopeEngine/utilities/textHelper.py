@@ -30,7 +30,8 @@ Macros['defaultFont'] = ('font', SysFont('tahoma', 24))
 Macros['largeFont'] = ('font', SysFont('tahoma', 32))
 Macros['largerFont'] = ('font', SysFont('tahoma', 48))
 
-def createText(text, rect, justify = None):
+def createText(text, rect, justify = None, font = 'defaultFont', color = 'black'):
+    text = "{" + font + "; " + "{" + color + "; " + text + "}}"
     glyph = Glyph(rect)
     glyph.input(text, justify)
     glyph.update()

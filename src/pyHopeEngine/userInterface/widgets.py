@@ -60,10 +60,10 @@ class BaseTable(gui.Table):
         
         return bar
     
-    def addText(self, text, rect, justify = None, **params):
+    def addText(self, text, rect, justify = None, font = 'defaultFont', color = 'black', **params):
         '''Adds text to the table as an image'''
         textRect = pygame.Rect(rect)
-        textArea = createText(text, textRect, justify)
+        textArea = createText(text, textRect, justify, font, color)
         image = gui.Image(textArea.image, **params)
         self.addWidget(image, **params)
         
