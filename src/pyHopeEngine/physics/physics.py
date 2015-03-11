@@ -253,7 +253,8 @@ class PhysicsManager(object):
             transComp = actor.getComponent("TransformComponent")
             if transComp.pos != body.position or transComp.rotation != body.angle:
                 transComp.pos = copy.copy(body.position)
-                transComp.rotation = copy.copy(body.angle)    
+                transComp.rotation = copy.copy(body.angle) 
+                transComp.velocityNormal = copy.copy(body.velocity.normalized())   
                 
                 event = Event_ActorMoved(actorID, body.position, body.angle)
                 ECOM.eventManager.queueEvent(event)      

@@ -16,6 +16,7 @@ class TransformComponent(ActorComponent):
         self.direction = None
         self.pos = None
         self.rotation = None
+        self.velocityNormal = None
         
         #size is (width, height)
         self.size = None
